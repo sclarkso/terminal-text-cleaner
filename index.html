@@ -247,14 +247,36 @@
   // this the marker gets stranded mid-sentence when wrapped lines rejoin.
   const stripGutter = s => s.replace(/^\s*(?:[▏▎▍▌│┃]\s?)+/, '');
 
+  // Squash the gap between two words down to a single plain space. Terminals
+  // pad with far more than the space bar — tabs, non-breaking spaces, en/em and
+  // ideographic spaces — and inline code copied out of a rendered view usually
+  // arrives wrapped in them, which is what leaves a visible double space behind.
+  // Matching "whitespace that isn't a line break" catches every variant rather
+  // than only the ones we thought to list. Zero-width characters are deleted
+  // outright: they render as nothing but still split words apart.
+  const INVISIBLE = /[\u00AD\u034F\u200B-\u200D\u2060\uFEFF]/g;
+  const HORIZONTAL_WS = /[^\S\r\n\u2028\u2029]+/g;
+  const collapseSpaces = s => s.replace(INVISIBLE, '').replace(HORIZONTAL_WS, ' ');
+
+  // Inline code copied out of a rendered view arrives padded with a space on
+  // each side. Collapsing runs fixes the gap between words but leaves a stray
+  // space hugging the inside of a bracket or sitting in front of punctuation.
+  // The bracket rules skip genuinely empty pairs so markdown checkboxes ("[ ]")
+  // survive, and punctuation only tightens when a space or the line end follows
+  // it, which leaves emoticons like ":-)" and mid-sentence " ... " alone.
+  const tightenPunctuation = s => s
+    .replace(/([(\[{])\s+(?![)\]}])/g, '$1')
+    .replace(/([^\s(\[{])\s+([)\]}])/g, '$1$2')
+    .replace(/\s+([.,;:!?])(?=\s|$)/g, '$1');
+
   // Step 1: collapse terminal-wrapped lines back into logical lines.
   // Every line glues onto the one above it unless it's blank or starts a
   // new list item. Blank lines are kept (collapsed) as paragraph breaks.
   function toLogicalLines(text) {
-    const raw = text.split(/\r\n|\r|\n/);
+    const raw = text.split(/\r\n|\r|\n|\u2028|\u2029/);
     let out = [];
     for (const line of raw) {
-      const s = stripGutter(line).trim().replace(/ {2,}/g, ' ');
+      const s = stripGutter(collapseSpaces(line)).trim();
       if (s === '') {
         if (out.length && out[out.length - 1] !== '') out.push('');
         continue;
@@ -272,7 +294,7 @@
   function toBlocks(lines) {
     const blocks = [];
     for (const line of lines) {
-      const s = line.trim();
+      const s = tightenPunctuation(line.trim());
       if (s === '') continue;
       const num = s.match(/^(\d+)[.)]\s+([\s\S]*)$/);
       const bul = s.match(/^[-*•]\s+([\s\S]*)$/);
