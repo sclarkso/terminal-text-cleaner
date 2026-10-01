@@ -3,16 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Terminal Text Cleaner | Chasing Next</title>
+<title>Terminal Text Cleaner</title>
 <meta name="description" content="Free tool that cleans up text copied from a terminal: rejoins lines chopped mid-sentence and rebuilds numbered and bulleted lists. Runs entirely in your browser.">
-<link rel="canonical" href="https://chasingnext.com/tools/terminal-text-cleaner">
 <meta property="og:title" content="Terminal Text Cleaner">
 <meta property="og:description" content="Paste text copied from a terminal and turn messy formatting clean. Rejoins wrapped lines, rebuilds lists, copies as rich text. Runs entirely in your browser.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://chasingnext.com/tools/terminal-text-cleaner">
-<meta property="og:image" content="https://chasingnext.com/tools/terminal-text-cleaner/og-image.png">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://chasingnext.com/tools/terminal-text-cleaner/og-image.png">
 <style>
   :root {
     --neon: #CFFF00;
@@ -31,26 +26,6 @@
     display: flex;
     flex-direction: column;
   }
-
-  /* Site header — matches chasingnext.com nav: 56px tall, 1120 wide, soft shadow */
-  .site-header {
-    position: sticky; top: 0; z-index: 30;
-    background: #fff;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  }
-  .header-inner {
-    max-width: 1120px; margin: 0 auto;
-    padding: 0 24px;
-    height: 56px;
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 16px;
-  }
-  .logo-link { display: inline-flex; }
-  .logo { height: 28px; width: auto; max-width: 160px; display: block; }
-  .header-links { display: flex; align-items: center; gap: 16px; }
-  .icon-link { display: inline-flex; color: #52525b; transition: color 0.15s; }
-  .icon-link:hover { color: var(--ink); }
-  .icon-link svg { display: block; }
 
   /* Tool */
   main.wrap { flex: 1; width: 100%; max-width: 1120px; margin: 0 auto; padding: 32px 24px; }
@@ -134,63 +109,10 @@
   .seg-btn.active { background: var(--neon); }
   .seg-btn:not(.active):hover { background: #f4f4f5; }
 
-  /* Site footer — white like the header, soft shadow, holds the CTA */
-  .site-footer {
-    position: sticky; bottom: 0; z-index: 30;
-    background: #fff;
-    box-shadow: 0 -2px 8px rgba(0,0,0,0.04);
-  }
-  .footer-inner {
-    max-width: 1120px; margin: 0 auto;
-    height: 56px; padding: 0 24px;
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 20px;
-  }
-  .footer-cta { margin: 0; font-size: 14px; line-height: 1.5; }
-  .footer-cta a {
-    color: var(--ink); font-weight: 700;
-    text-decoration: underline; text-underline-offset: 2px;
-  }
-  .cta-btn {
-    flex-shrink: 0;
-    display: inline-flex; align-items: center; gap: 7px;
-    background: #fff; color: var(--ink);
-    border: 1.5px solid var(--ink); border-radius: 8px;
-    padding: 10px 18px;
-    font-size: 13px; font-weight: 700;
-    text-decoration: none; white-space: nowrap;
-    transition: background 0.15s;
-  }
-  .cta-btn svg { display: block; transition: transform 0.15s; }
-  .cta-btn:hover { background: var(--neon); }
-  .cta-btn:hover svg { transform: translateX(2px); }
-  .cta-btn:active { transform: translateY(1px); }
-  @media (max-width: 680px) {
-    .site-footer { position: static; }
-    .footer-inner {
-      flex-direction: column; align-items: flex-start;
-      height: auto; padding: 16px 24px;
-    }
-  }
+ 
 </style>
 </head>
 <body>
-
-<header class="site-header">
-  <div class="header-inner">
-    <a class="logo-link" href="https://chasingnext.com" target="_blank" rel="noopener" aria-label="Chasing Next">
-      <img class="logo" src="chasing-next-logo.png" alt="Chasing Next">
-    </a>
-    <div class="header-links">
-      <a class="icon-link" href="https://github.com/rb-mm/terminal-text-cleaner" target="_blank" rel="noopener" aria-label="View source on GitHub">
-        <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.5 11.5 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .322.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-      </a>
-      <a class="icon-link" href="https://x.com/chasing_next" target="_blank" rel="noopener" aria-label="Chasing Next on X">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-      </a>
-    </div>
-  </div>
-</header>
 
 <main class="wrap">
   <h1>Terminal Text Cleaner</h1>
@@ -221,14 +143,6 @@
   </div>
 </main>
 
-<footer class="site-footer">
-  <div class="footer-inner">
-    <p class="footer-cta">Check out more from <a href="https://chasingnext.com" target="_blank" rel="noopener">Chasing Next</a>. We have free, interactive lessons to help people get good at AI.</p>
-    <a class="cta-btn" href="https://chasingnext.com/start" target="_blank" rel="noopener">Explore free lessons
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
-    </a>
-  </div>
-</footer>
 
 <script>
   const input = document.getElementById('input');
